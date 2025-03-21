@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet-clean-architecture", "dotnet-clean-architecture.csproj", "{F53FD501-2E74-7E2C-54A4-2B8F05A2840D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F53FD501-2E74-7E2C-54A4-2B8F05A2840D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F53FD501-2E74-7E2C-54A4-2B8F05A2840D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F53FD501-2E74-7E2C-54A4-2B8F05A2840D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F53FD501-2E74-7E2C-54A4-2B8F05A2840D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7949F65A-76DB-442D-A137-33F989DC002A}
+	EndGlobalSection
+EndGlobal
