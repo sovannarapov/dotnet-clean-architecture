@@ -2,7 +2,7 @@ using SharedKernel;
 
 namespace Domain.Users;
 
-public static class UserError
+public static class UserErrors
 {
     public static Error NotFound(Guid userId) => Error.NotFound(
         "Users.NotFound",
