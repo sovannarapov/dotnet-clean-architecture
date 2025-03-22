@@ -1,46 +1,57 @@
-using dotnet_clean_architecture.Web.Api;
+using System.Reflection;
+using Application;
+using HealthChecks.UI.Client;
+using Infrastructure;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Serilog;
+using Web.Api;
+using Web.Api.Extensions;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
 
-var app = builder.Build();
+builder.Services.AddSwaggerGenWithAuth();
 
-// Configure the HTTP request pipeline.
+builder.Services
+    .AddApplication()
+    .AddPresentation()
+    .AddInfrastructure(builder.Configuration);
+
+builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
+
+WebApplication app = builder.Build();
+
+app.MapEndpoints();
+
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwaggerWithUi();
+
+    app.ApplyMigrations();
 }
 
-app.UseHttpsRedirection();
-
-var summaries = new[]
+app.MapHealthChecks("health", new HealthCheckOptions
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
-app.MapGet("/weatherforecast", () =>
+app.UseRequestContextLogging();
+
+app.UseSerilogRequestLogging();
+
+app.UseExceptionHandler();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+// REMARK: If you want to use Controllers, you'll need this.
+// app.MapControllers();
+
+await app.RunAsync();
+
+namespace Web.Api
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
-app.Run();
-
-namespace dotnet_clean_architecture.Web.Api
-{
-    record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-    {
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-    }
+    public class Program;
 }
