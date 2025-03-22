@@ -41,7 +41,7 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build and tag Docker image
-        run: docker build src/Web.Api -t ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:v$IMAGE_TAG
+        run: docker build -f src/Web.Api/Dockerfile . -t ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:v$IMAGE_TAG
 
       - name: Push Docker image 🚀
         run: docker push ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:v$IMAGE_TAG
