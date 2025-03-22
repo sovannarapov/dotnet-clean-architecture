@@ -30,7 +30,7 @@ jobs:
 
       - name: Build and Publish 📂
         run: |
-          dotnet restore WebApi
+          dotnet restore Web.Api
           dotnet build Web.Api -c Release --no-restore
           dotnet publish Web.Api -c Release --no-build
             --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
