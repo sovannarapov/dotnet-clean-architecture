@@ -30,9 +30,9 @@ jobs:
 
       - name: Build and Publish 📂
         run: |
-          dotnet restore Web.Api
-          dotnet build Web.Api -c Release --no-restore
-          dotnet publish Web.Api -c Release --no-build
+          dotnet restore src/Web.Api
+          dotnet build src/Web.Api -c Release --no-restore
+          dotnet publish src/Web.Api -c Release --no-build
             --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
 
       - name: Login to Dockerhub 🐳
