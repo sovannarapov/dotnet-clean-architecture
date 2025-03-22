@@ -25,10 +25,10 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Install dependencies 📂
-        run: dotnet restore Web.Api
+        run: dotnet restore src/Web.Api
 
       - name: Build 🧱
-        run: dotnet build Web.Api --configuration Release --no-restore
+        run: dotnet build src/Web.Api --configuration Release --no-restore
 
       - name: Test 🧪
-        run: dotnet test Web.Api --configuration Release --no-build
+        run: dotnet test src/Web.Api --configuration Release --no-build
