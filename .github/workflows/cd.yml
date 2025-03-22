@@ -32,8 +32,7 @@ jobs:
         run: |
           dotnet restore src/Web.Api
           dotnet build src/Web.Api -c Release --no-restore
-          dotnet publish src/Web.Api -c Release --no-build
-            --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+          dotnet publish src/Web.Api -c Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
 
       - name: Login to Dockerhub 🐳
         uses: docker/login-action@v3
