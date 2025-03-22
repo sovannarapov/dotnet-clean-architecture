@@ -4,5 +4,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- SharedKernel -->
+    <PackageVersion Include="MediatR.Contracts" Version="2.0.1" />
   </ItemGroup>
 </Project>
