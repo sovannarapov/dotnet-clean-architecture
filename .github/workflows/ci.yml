@@ -25,7 +25,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Install dependencies 📂
-        run: dotnet restore WebApi
+        run: dotnet restore Web.Api
 
       - name: Build 🧱
         run: dotnet build Web.Api --configuration Release --no-restore
