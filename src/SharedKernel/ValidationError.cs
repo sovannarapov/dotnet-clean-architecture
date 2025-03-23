@@ -1,6 +1,6 @@
 ﻿namespace SharedKernel;
 
-public record ValidationError : Error
+public sealed record ValidationError : Error
 {
     public ValidationError(Error[] errors)
         : base(

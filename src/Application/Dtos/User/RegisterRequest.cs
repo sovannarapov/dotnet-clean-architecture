@@ -1,8 +1,6 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Application.Dtos.User;
 
-public record RegisterRequest
+public sealed record RegisterRequest
 {
     public string Email { get; set; }
     public string FirstName { get; set; }
