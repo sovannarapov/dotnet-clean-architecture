@@ -11,7 +11,9 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
 
-builder.Services.AddSwaggerGenWithAuth();
+builder.Services
+    .AddSwaggerGenWithAuth()
+    .AddVersioning();
 
 builder.Services
     .AddApplication()
@@ -22,7 +24,7 @@ builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 
 WebApplication app = builder.Build();
 
-app.MapEndpoints();
+app.MapVersionedEndpoints();
 
 if (app.Environment.IsDevelopment())
 {
