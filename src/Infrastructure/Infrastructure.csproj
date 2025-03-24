@@ -13,4 +13,8 @@
         <ProjectReference Include="..\Application\Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="ArchitectureTests" />
+    </ItemGroup>
+
 </Project>
