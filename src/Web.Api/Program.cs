@@ -55,5 +55,5 @@ await app.RunAsync();
 
 namespace Web.Api
 {
-    public class Program;
+    public partial class Program;
 }
