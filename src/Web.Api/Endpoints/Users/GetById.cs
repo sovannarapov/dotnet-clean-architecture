@@ -11,7 +11,7 @@ internal sealed class GetById : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapGet("users/{userId}", async (Guid userId, ISender sender, CancellationToken cancellationToken) =>
+        endpoints.MapGet("users/{userId:guid}", async (Guid userId, ISender sender, CancellationToken cancellationToken) =>
         {
             var query = new GetUserByIdQuery(userId);
 
@@ -19,6 +19,7 @@ internal sealed class GetById : IEndpoint
 
             return result.Match(Results.Ok, CustomResults.Problem);
         })
+        .HasApiVersion(1.0)
         .HasPermission(Permissions.UsersAccess)
         .WithTags(Tags.Users);
     }
