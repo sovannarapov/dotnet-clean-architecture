@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using Asp.Versioning;
+using Asp.Versioning.Builder;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Web.Api.Endpoints;
 
@@ -22,15 +24,13 @@ public static class EndpointExtensions
 
     public static IApplicationBuilder MapEndpoints(
         this WebApplication app,
-        RouteGroupBuilder? routeGroupBuilder = null)
+        RouteGroupBuilder routeGroupBuilder)
     {
         IEnumerable<IEndpoint> endpoints = app.Services.GetRequiredService<IEnumerable<IEndpoint>>();
 
-        IEndpointRouteBuilder builder = routeGroupBuilder is null ? app : routeGroupBuilder;
-
         foreach (IEndpoint endpoint in endpoints)
         {
-            endpoint.MapEndpoint(builder);
+            endpoint.MapEndpoint(routeGroupBuilder);
         }
 
         return app;
@@ -39,5 +39,15 @@ public static class EndpointExtensions
     public static RouteHandlerBuilder HasPermission(this RouteHandlerBuilder app, string permission)
     {
         return app.RequireAuthorization(permission);
+    }
+    
+    public static RouteGroupBuilder WithVersioning(this WebApplication app, string prefix = "api")
+    {
+        IVersionedEndpointRouteBuilder version = app.NewVersionedApi();
+        RouteGroupBuilder group = version.MapGroup($$"""/{{prefix}}/v{version:apiVersion}""")
+            .WithOpenApi()
+            .HasApiVersion(new ApiVersion(1, 0));
+            
+        return group;
     }
 }
