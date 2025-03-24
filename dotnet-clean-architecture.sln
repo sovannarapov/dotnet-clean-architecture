@@ -3,6 +3,9 @@
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
+	ProjectSection(SolutionItems) = preProject
+		src\tests\ArchitectureTests\obj\Debug\net9.0\.NETCoreApp,Version = v9.0.AssemblyAttributes.cs = src\tests\ArchitectureTests\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.cs
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Api", "src\Web.Api\Web.Api.csproj", "{23B5974A-53BD-4164-9D1F-72166FEA8AC0}"
 EndProject
@@ -13,6 +16,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Domain\Domain.csproj", "{B346D733-D2AB-4422-9549-EE44DD7A8B7C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "src\SharedKernel\SharedKernel.csproj", "{98659509-42D7-44F9-B794-70F620D796E1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CB3774CB-890D-4828-AC3C-55D9305016D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchitectureTests", "tests\ArchitectureTests\ArchitectureTests.csproj", "{1210210B-FC51-4769-B40F-1CC12E9CB816}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +53,10 @@ Global
 		{98659509-42D7-44F9-B794-70F620D796E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98659509-42D7-44F9-B794-70F620D796E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98659509-42D7-44F9-B794-70F620D796E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1210210B-FC51-4769-B40F-1CC12E9CB816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1210210B-FC51-4769-B40F-1CC12E9CB816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1210210B-FC51-4769-B40F-1CC12E9CB816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1210210B-FC51-4769-B40F-1CC12E9CB816}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{23B5974A-53BD-4164-9D1F-72166FEA8AC0} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
@@ -53,5 +64,6 @@ Global
 		{60E05297-C075-4AED-91C4-DAF3F2DDD2A4} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{B346D733-D2AB-4422-9549-EE44DD7A8B7C} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{98659509-42D7-44F9-B794-70F620D796E1} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{1210210B-FC51-4769-B40F-1CC12E9CB816} = {CB3774CB-890D-4828-AC3C-55D9305016D4}
 	EndGlobalSection
 EndGlobal
