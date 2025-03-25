@@ -19,13 +19,13 @@ internal sealed class Update : IEndpoint
         {
             var command = new UpdateUserCommand(
                 userId,
-                request.FirstName,
-                request.LastName,
-                request.Email);
+                request?.FirstName,
+                request?.LastName,
+                request?.Email);
 
-            Result result = await sender.Send(command, cancellationToken);
+            Result<UserDto> result = await sender.Send(command, cancellationToken);
 
-            return result.Match(Results.NoContent, CustomResults.Problem);
+            return result.Match((userDto) => Results.Ok(userDto), CustomResults.Problem);
         })
         .HasApiVersion(1.0)
         .HasPermission(Permissions.UsersAccess)
