@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions.Authentication;
 using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
+using Application.Dtos.User;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
@@ -8,13 +9,13 @@ using SharedKernel;
 namespace Application.Features.Users.Register;
 
 internal sealed class RegisterUserCommandHandler(IApplicationDbContext context, IPasswordHasher passwordHasher)
-    : ICommandHandler<RegisterUserCommand, Guid>
+    : ICommandHandler<RegisterUserCommand, UserDto>
 {
-    public async Task<Result<Guid>> Handle(RegisterUserCommand command, CancellationToken cancellationToken)
+    public async Task<Result<UserDto>> Handle(RegisterUserCommand command, CancellationToken cancellationToken)
     {
         if (await context.Users.AnyAsync(u => u.Email == command.Email, cancellationToken))
         {
-            return Result.Failure<Guid>(UserErrors.EmailAlreadyExists);
+            return Result.Failure<UserDto>(UserErrors.EmailAlreadyExists);
         }
 
         var user = new User
@@ -32,6 +33,14 @@ internal sealed class RegisterUserCommandHandler(IApplicationDbContext context, 
 
         await context.SaveChangesAsync(cancellationToken);
 
-        return user.Id;
+        var userDto = new UserDto
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email
+        };
+
+        return Result.Success(userDto);
     }
 }
