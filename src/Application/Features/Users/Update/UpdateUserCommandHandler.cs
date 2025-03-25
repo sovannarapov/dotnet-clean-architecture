@@ -10,26 +10,42 @@ namespace Application.Features.Users.Update;
 
 internal sealed class UpdateUserCommandHandler(
     IApplicationDbContext context,
-    IUserContext userContext) : ICommandHandler<UpdateUserCommand>
+    IUserContext userContext) : ICommandHandler<UpdateUserCommand, UserDto>
 {
-    public async Task<Result> Handle(UpdateUserCommand command, CancellationToken cancellationToken)
+    private static void UpdateUserFields(User user, UpdateUserCommand command)
+    {
+        if (command.FirstName is not null)
+        {
+            user.FirstName = command.FirstName;
+        }
+
+        if (command.LastName is not null)
+        {
+            user.LastName = command.LastName;
+        }
+
+        if (command.Email is not null)
+        {
+            user.Email = command.Email;
+        }
+    }
+
+    public async Task<Result<UserDto>> Handle(UpdateUserCommand command, CancellationToken cancellationToken)
     {
         User? user = await context.Users
             .FirstOrDefaultAsync(u => u.Id == command.UserId, cancellationToken);
 
         if (user is null)
         {
-            return Result.Failure(UserErrors.NotFound(command.UserId));
+            return Result.Failure<UserDto>(UserErrors.NotFound(command.UserId));
         }
 
         if (user.Id != userContext.UserId)
         {
-            return Result.Failure(UserErrors.Unauthorized());
+            return Result.Failure<UserDto>(UserErrors.Unauthorized());
         }
 
-        user.FirstName = command.FirstName;
-        user.LastName = command.LastName;
-        user.Email = command.Email;
+        UpdateUserFields(user, command);
 
         await context.SaveChangesAsync(cancellationToken);
 
