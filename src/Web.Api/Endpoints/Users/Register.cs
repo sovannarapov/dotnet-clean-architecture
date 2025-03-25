@@ -19,9 +19,9 @@ internal sealed class Register : IEndpoint
                 request.LastName,
                 request.Password);
 
-            Result<Guid> result = await sender.Send(command, cancellationToken);
+            Result<UserDto> result = await sender.Send(command, cancellationToken);
 
-            return result.Match(Results.Ok, CustomResults.Problem);
+            return result.Match((userDto) => Results.Ok(userDto), CustomResults.Problem);
         })
         .WithTags(Tags.Users)
         .HasApiVersion(1.0);
