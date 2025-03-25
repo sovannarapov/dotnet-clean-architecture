@@ -1,18 +1,25 @@
-﻿using FluentValidation;
+﻿using Application.Features.Users.Update;
+using FluentValidation;
 
 namespace Application.Features.Users.Register;
 
-internal sealed class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
+internal sealed class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
 {
-    public RegisterUserCommandValidator()
+    public UpdateUserCommandValidator()
     {
+        RuleFor(c => c.UserId)
+            .NotEmpty()
+            .WithMessage("UserId is required");
+
         RuleFor(c => c.FirstName)
             .NotEmpty()
+            .WithMessage("First name is required")
             .MaximumLength(50)
             .WithMessage("First name must not exceed 50 characters");
 
         RuleFor(c => c.LastName)
             .NotEmpty()
+            .WithMessage("Last name is required")
             .MaximumLength(50)
             .WithMessage("Last name must not exceed 50 characters");
 
@@ -20,11 +27,6 @@ internal sealed class RegisterUserCommandValidator : AbstractValidator<RegisterU
             .NotEmpty()
             .WithMessage("Email is required")
             .EmailAddress()
-            .WithMessage("Invalid email format");
-
-        RuleFor(c => c.Password)
-            .NotEmpty()
-            .MinimumLength(8)
-            .WithMessage("Password must be at least 8 characters long");
+            .WithMessage("Email is not valid");
     }
 }
